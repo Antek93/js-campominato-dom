@@ -1,3 +1,4 @@
+
 console.log('HI, I am java and I am working fine'); //Verifica javascript funzioni correttamente;
 
 // Creazione Array per contenere i num. generati randomicamente e assegnati come valore bomba:
