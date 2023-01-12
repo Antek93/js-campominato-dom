@@ -13,6 +13,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
 
 #grid-container {
@@ -112,3 +113,48 @@ main {
     text-decoration: none;
     color: black;
 }
+
+.box-img {
+    width: 30%;
+    position: absolute;
+    top: 20%;
+    left: 0%;
+}
+
+.box-img > img {
+    width: 100%;
+}
+
+#score-box {
+    position: absolute;
+    top: 39%;
+    right: 12%;
+    width: 150px;
+    background: aliceblue;
+    height: 150px;
+    text-align: center;
+    border-radius: 79px;
+    vertical-align: 50%;
+    line-height: 150px;
+    font-size: 64px;
+}
+
+/*Layer invisibile*/
+
+.layer {
+    height: 80vh;
+    width: 80vh;
+    background-color: rgba(12, 12, 12, 0.062);
+    position: absolute;
+
+}
+
+h1 {
+    position: absolute;
+    top: 47%;
+    right: 23.5%;
+    color: white;
+    font-size: 32px;
+    }
+    
+

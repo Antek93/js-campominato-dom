@@ -14,7 +14,7 @@
             Play
         </button>
         <!-- Seleziona la difficolta -->
-        <select id="difficulty" class="difficolta">
+        <select required id="difficulty" class="difficolta">
             <option class="select" value="A">Easy</option>
             <option class="select" value="B">Medium</option>
             <option class="select" value="C">Hard</option>
@@ -26,7 +26,21 @@
         <!-- Restart -->
         <button id="restart">
             <a href="javascript:location.reload();" >Restart</a>
-        </button>>       
+        </button>
+         <!-- Menu sconfitta -->
+         <div id="img-box" class="box-img">
+            <img src="img/lost.png" alt="">
+        </div>   
+        <!-- Menu score -->
+        <div>
+            <h1 id="scored">Score:</h1>
+            <div id="score-box">
+            </div>  
+        </div>    
+        <!-- Layer invisibile -->
+        <div id="layerInvisibile" class="layer" >
+
+        </div>
      </main>
     <script type="text/javascript" src="js/script.js"></script>
 </body>

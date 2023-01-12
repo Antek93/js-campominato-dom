@@ -11,11 +11,46 @@ console.log('HI, I am java and I am working fine'); //Verifica javascript funzio
 
 const play = document.getElementById('play');
 
+// Manipolato il dom per selezioanare il box immagini:
+
+const imgBox = document.getElementById('img-box');
+
+// Aggiunta la classe hidden per nascondere la scritta sconfitta:
+
+imgBox.classList.add('hidden');
+
+// Manipolato il dom per selezionare il div Score
+
+const score = document.getElementById('score-box');
+
+// Aggiunta la classe hidden per nascondere la scritta sconfitta:
+
+score.classList.add('hidden');
+
+// Manipolato il dom per selezioanare il box layer invisibile:
+
+const layer = document.getElementById('layerInvisibile')
+
+// Aggiunta la classe hidden per nascondere il box layer invisibile:
+
+layer.classList.add('hidden');
+
+// Manipolato il dom per selezioanare il box layer invisibile:
+
+const scored = document.getElementById('scored')
+
+// Aggiunta la classe hidden per nascondere il box layer invisibile:
+
+scored.classList.add('hidden');
+
+//__________________________________// Creazione logiche: //___________________________________//
 
 play.addEventListener('click', //Se clicco sul tasto play
     function () {
-
-       let selection = document.getElementById('difficulty').value; //Ottengo il valore di selection: difficulty: easy/medium/hard
+        
+       score.classList.remove('hidden');
+       scored.classList.remove('hidden');
+       let selection = document.getElementById('difficulty').value; //Ottengo il valore di selection: difficulty: easy/medium/hard - selezionato dall'utente.
        const gridContainer = document.getElementById('grid-container'); // Selezione il grid-container nel DOM
 
 
@@ -53,11 +88,37 @@ play.addEventListener('click', //Se clicco sul tasto play
                         
                     }
 
-            
-                }
+                    if (easyBombs.includes(i)) {
+                        
+                        
+                        this.classList.add('bombed'); // AGGIUNGI la classe bombed (background red)
+                        alert('You lost the game');
+                        imgBox.classList.remove('hidden'); //Per mostrare la scritta YOU LOST
+                        layer.classList.remove('hidden'); //Per mostrare uno strato invisibile che blocca la griglia dai click            
+                
+                
+                
+                    } else {  // ALTRIMENTI
+                
+                        this.classList.add('clicked')
+                        operation.push('0');
+                        console.log('Numero di iterazioni:', operation.length, operation)
+                        score.innerHTML = operation.length;
+
+                        if (operation.length == 84) { // EASY MODE = Totale numeri - totale bombe = 100 - 16 - punteggio max: 84
+
+                            alert('You win')
+                            layer.classList.remove('hidden'); //Per mostrare uno strato invisibile che blocca la griglia dai click                   }
+    
+                
+                        }
+                                    
+                    }
+                 }
+                
                 );
 
-        }
+            }
 
        } else if (selection == 'B') { //SE L'UTENTE HA SELEZIONATO OPZIONE MEDIUM
 
@@ -93,6 +154,29 @@ play.addEventListener('click', //Se clicco sul tasto play
                     
                 }
 
+                if (mediumBombs.includes(i)) {
+                        
+                        
+                    this.classList.add('bombed'); // AGGIUNGI la classe bombed (background red)
+                    alert('You lost the game');
+                    imgBox.classList.remove('hidden'); //Per mostrare la scritta YOU LOST
+                    layer.classList.remove('hidden'); //Per mostrare uno strato invisibile che blocca la griglia dai click            
+            
+            
+                } else {  // ALTRIMENTI
+            
+                    this.classList.add('clicked')
+                    operation.push('0');
+                    console.log('Numero di iterazioni:', operation.length, operation)
+                    score.innerHTML = operation.length;
+
+                    if (operation.length == 65 ) { // MEDIUM MODE = Totale numeri - totale bombe = 81 -16 - punteggio max: 65
+
+                        alert('You win')
+                        layer.classList.remove('hidden'); //Per mostrare uno strato invisibile che blocca la griglia dai click
+                    }
+                                
+                }    
           
             }
             );
@@ -118,31 +202,34 @@ play.addEventListener('click', //Se clicco sul tasto play
 
                function() {
 
-                    // console.log('ArrayNumGenerati:', numGenerati)
-                    // console.log('numero selezionat:', newCell.innerHTML)
-                    // console.log('numero selezionato', allNumbers)
+                    if (hardBombs.includes(i)) {
+                        
+                        
+                        this.classList.add('bombed'); // AGGIUNGI la classe bombed (background red)
+                        alert('You lost the game');
+                        imgBox.classList.remove('hidden'); //Per mostrare la scritta YOU LOST
+                        layer.classList.remove('hidden'); //Per mostrare uno strato invisibile che blocca la griglia dai click
+                                  
+                
+                
+                
+                    } else {  // ALTRIMENTI
+                
+                        this.classList.add('clicked')
+                        operation.push('0');
+                        console.log('Numero di iterazioni:', operation.length, operation)
+                        score.innerHTML = operation.length;
 
-                    // // SE nell'array numeri generati è incluso il valore i
-                    // if (numGenerati.includes(i)) {
-                    
-                    // this.classList.remove('clicked');// RIMUOVI la classe clicked (background aqua)
-                    // this.classList.add('bombed');// AGGIUNGI la classe bombed (background red)
-                    // alert('You lost the game');
-                    // gridContainer.classList.add('hidden'); //Per aggiungere l'elemento display:none
-            
-            
-            
-                    // } else {  // ALTRIMENTI
-            
-                    // this.classList.add('clicked')
-                    // let operation = [];
-                    // operation.push('0');
-                    // console.log('Numero di iterazioni:', operation.length)
+                        if (operation.length == 33) { // HARD MODE = Totale numeri - totale bombe = 49 - 16 - punteggio max: 33
 
-                    // oppure
+                            alert('You win')
+                            layer.classList.remove('hidden'); //Per mostrare uno strato invisibile che blocca la griglia dai click
 
-                    result(i)
-                                
+    
+                       }
+                                    
+                    }                              
+
                 }
 
                          
@@ -154,7 +241,7 @@ play.addEventListener('click', //Se clicco sul tasto play
 );
 
 
-// FUNZIONI
+//__________________________________// FUNZIONI //_______________________________//
 
 // Logica per generare un numero random compreso tra min e max 
 
@@ -173,109 +260,90 @@ function easyBombsGenerator() {
 
     for (let i = 1; i <= 16; i++) {
 
-    //Crea una variabile per generare numeri casuali compresi tra 1 e 100
+    // Crea una variabile per generare numeri casuali compresi tra 1 e 100
 
     let randomNum = getRandomNumber(1,100);
+    // Crea logica che rigenera il calcolo randomico se un numero generato è già presente nell'array
 
-    // Creare logica che rigenera il calcolo randomico se un numero generato è già presente nell'array
-
-    while(numGenerati.includes(randomNum)){ // while ha funzione di controllo in stile IF = fintanto che (la condizione tra parentesi) è reale, continua a:
+    while(easyBombs.includes(randomNum)){ // while ha funzione di controllo in stile IF = fintanto che (la condizione tra parentesi) è reale, continua a:
         randomNum = getRandomNumber(1, 100); // generare un numero random compreso tra 1 e 100;
     }
 
     // Spingere i numeri creati (e mai ripetuti) nell'array
-    numGenerati.push(randomNum);
+    easyBombs.push(randomNum);
 
-    console.log('Numero generato:', randomNum,)
-    console.log('Array numeri generati', numGenerati)
-
-    // return xxx; //Return non viene specificato perché la funzione colloca direttamente i numeri generati nell'Array numGenerati; riga 5
-}
+    // return xxx; //Return non viene specificato perché la funzione colloca direttamente i numeri generati nell'Array easyBombs;
+    }
 
 }
+
+let easybombing = easyBombsGenerator(); //CREATA VARIABILE easybombing per attivare la funzione easyBombsGenerator
+console.log('Bombe per mod EASY', easyBombs) // STAMPA IN CONSOLE LE BOMBE COMPRESE TRA 1-100
 
 // B))) funzione per la crezione di bombe in modalità MEDIUM
 
+//Logica per la creazione di una funzione che:
 
 function mediumBombsGenerator() {
 
-    // Crea un ciclo per operare 16 volte: la creazione di un numero randomico compreso tra 1 e 100;
+    // Crea un ciclo per operare 16 volte: la creazione di un numero randomico compreso tra 1 e 81;
 
     for (let i = 1; i <= 16; i++) {
 
-    //Crea una variabile per generare numeri casuali compresi tra 1 e 100
+    //Crea una variabile per generare numeri casuali compresi tra 1 e 81
 
     let randomNum = getRandomNumber(1,81);
 
     // Creare logica che rigenera il calcolo randomico se un numero generato è già presente nell'array
 
-    while(numGenerati.includes(randomNum)){ // while ha funzione di controllo in stile IF = fintanto che (la condizione tra parentesi) è reale, continua a:
-        randomNum = getRandomNumber(1, 81); // generare un numero random compreso tra 1 e 100;
+    while(mediumBombs.includes(randomNum)){ // while ha funzione di controllo in stile IF = fintanto che (la condizione tra parentesi) è reale, continua a:
+        randomNum = getRandomNumber(1, 81); // generare un numero random compreso tra 1 e 81;
     }
 
     // Spingere i numeri creati (e mai ripetuti) nell'array
-    numGenerati.push(randomNum);
+    mediumBombs.push(randomNum);
 
-    console.log('Numero generato:', randomNum,)
-    console.log('Array numeri generati', numGenerati)
 
-    // return xxx; //Return non viene specificato perché la funzione colloca direttamente i numeri generati nell'Array numGenerati; riga 5
+    // return xxx; //Return non viene specificato perché la funzione colloca direttamente i numeri generati nell'Array numGenerati;
 }
 
 }
+
+let mediumbombing = mediumBombsGenerator(); //CREATA VARIABILE mediumbombing per attivare la funzione mediumBombsGenerator
+console.log('Bombe per mod MEDIUM', mediumBombs) // STAMPA IN CONSOLE LE BOMBE COMPRESE TRA 1-81
 
 // C))) funzione per la crezione di bombe in modalità HARD
 
+//Logica per la creazione di una funzione che:
+
 function hardBombsGenerator() {
 
-    // Crea un ciclo per operare 16 volte: la creazione di un numero randomico compreso tra 1 e 100;
+    // Crea un ciclo per operare 16 volte: la creazione di un numero randomico compreso tra 1 e 49;
 
     for (let i = 1; i <= 16; i++) {
 
-    //Crea una variabile per generare numeri casuali compresi tra 1 e 100
+    //Crea una variabile per generare numeri casuali compresi tra 1 e 49
 
     let randomNum = getRandomNumber(1,49);
 
     // Creare logica che rigenera il calcolo randomico se un numero generato è già presente nell'array
 
-    while(numGenerati.includes(randomNum)){ // while ha funzione di controllo in stile IF = fintanto che (la condizione tra parentesi) è reale, continua a:
-        randomNum = getRandomNumber(1, 49); // generare un numero random compreso tra 1 e 100;
+    while(hardBombs.includes(randomNum)){ // while ha funzione di controllo in stile IF = fintanto che (la condizione tra parentesi) è reale, continua a:
+        randomNum = getRandomNumber(1, 49); // generare un numero random compreso tra 1 e 49;
     }
 
     // Spingere i numeri creati (e mai ripetuti) nell'array
-    numGenerati.push(randomNum);
+    hardBombs.push(randomNum);
 
-    console.log('Numero generato:', randomNum,)
-    console.log('Array numeri generati', numGenerati)
 
-    // return xxx; //Return non viene specificato perché la funzione colloca direttamente i numeri generati nell'Array numGenerati; riga 5
+    // return xxx; //Return non viene specificato perché la funzione colloca direttamente i numeri generati nell'Array numGenerati;
 }
 
 }
 
+let hardbombing = hardBombsGenerator(); //CREATA VARIABILE hardbombing per attivare la funzione hardBombsGenerator
+console.log('Bombe per mod HARD', hardBombs); //STAMPA IN CONSOLE LE BOMBE COMPRESE TRA 1 e 49
 
+// SCORE BOX
 
-//____________________________________________________________________
-// Creazione di una logica di controllo: selezionato un elemento bomba
-
-function result(num) { // num è l'argomento - non ha nessun valore al momento --> avrà un valore quando, applicata la funzione, sostituiamo num con un valore
-
-
-    if (numGenerati.includes(num)) { // il valore che verrà assegnato a num verrà sostituito qui
-                    
-        this.classList.remove('clicked');// RIMUOVI la classe clicked (background aqua)
-        this.classList.add('bombed');// AGGIUNGI la classe bombed (background red)
-        alert('You lost the game');
-        gridContainer.classList.add('hidden'); //Per aggiungere l'elemento display:none
-
-
-
-    } else {  // ALTRIMENTI
-
-        this.classList.add('clicked')
-        let operation = [];
-        operation.push('0');
-        console.log('Numero di iterazioni:', operation.length)
-                    
-    }
-}
+let operation = [];
