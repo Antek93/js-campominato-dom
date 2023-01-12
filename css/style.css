@@ -47,10 +47,17 @@ main {
     height: calc(100% / 7);
     font-size: 26px;
 }
-
+/* Classe colore aqua quando la cella della griglia viene toccata*/
 .clicked {
     background-color: aqua ;
 }
+
+/* Classe colore rosso quando la cella della griglia contiene una bomba*/
+
+.bombed {
+    background-color: red;
+}
+
 
 /* Classe assegnata al bottone play */
 .player {
